@@ -31,7 +31,7 @@ public class User implements Serializable {
     @Column(name = "role", nullable = false, length = 15)
     private Role role;
 
-    @Column(name = "date_creation", nullable = false)
+    @Column(name = "date_creation")
     private LocalDateTime dateCreation;
 
     @Column(name = "date_update")
