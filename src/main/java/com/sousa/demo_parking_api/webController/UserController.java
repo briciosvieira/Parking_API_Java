@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/{id}")
     public  ResponseEntity<User> getById(@PathVariable Long id ){
         User user = service.getById(id);
-        return  ResponseEntity.ok(user);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping
@@ -36,4 +36,18 @@ public class UserController {
         List<User> users = service.getAll();
         return ResponseEntity.ok(users) ;
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> updatePassword(@PathVariable Long id ,@RequestBody User user){
+        User users = service.patchPassword(id, user.getPassword());
+        return ResponseEntity.ok(users) ;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> delete(@PathVariable Long id){
+       service.getById(id);
+       service.delete(id);
+       return ResponseEntity.noContent().build();
+    }
+
 }

@@ -3,14 +3,12 @@ package com.sousa.demo_parking_api.service;
 import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 
 
-@RequiredArgsConstructor
 @Service
 public class UserService {
 
@@ -26,7 +24,7 @@ public class UserService {
         return repository.save(user);
     }
 
-    @Transactional()
+    @Transactional
     public User getById(Long id){
         return repository.findById(id).orElseThrow(()->  new  RuntimeException("Usuário não encontado"));
     }
@@ -34,7 +32,17 @@ public class UserService {
     @Transactional
     public List<User> getAll() {
         return repository.findAll();
+    }
 
+    @Transactional
+    public User patchPassword(Long id, String password) {
+        User user = getById(id);
+        user.setPassword(password);
+        return user;
+    }
 
+    public void  delete(Long id) {
+        User user = getById(id);
+        repository.delete(user);
     }
 }

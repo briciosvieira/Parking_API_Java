@@ -11,8 +11,7 @@ import java.util.Objects;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Getter@Setter
 @Table(name = "users")
 public class User implements Serializable {
 
@@ -62,4 +61,6 @@ public class User implements Serializable {
                 "id=" + id +
                 '}';
     }
+
+
 }
