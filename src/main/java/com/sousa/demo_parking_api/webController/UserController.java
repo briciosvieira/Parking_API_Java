@@ -2,6 +2,9 @@ package com.sousa.demo_parking_api.webController;
 
 import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.service.UserService;
+import com.sousa.demo_parking_api.webController.Dto.UserDto;
+import com.sousa.demo_parking_api.webController.Dto.mapper.UserModelMapper;
+import com.sousa.demo_parking_api.webController.Dto.mapper.UserResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +23,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user){
-        User users = service.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(users);
+    public ResponseEntity<UserResponseDto> create(@RequestBody UserDto userdto){
+        User users = service.save(UserModelMapper.DtotoUser(userdto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserModelMapper.UserToDto(users));
     }
 
     @GetMapping("/{id}")
