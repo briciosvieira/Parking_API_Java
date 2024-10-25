@@ -2,15 +2,16 @@ package com.sousa.demo_parking_api.webController.Dto.mapper;
 
 
 import com.sousa.demo_parking_api.entity.User;
-import com.sousa.demo_parking_api.webController.Dto.UserDto;
+import com.sousa.demo_parking_api.webController.Dto.UserCreateDto;
+import com.sousa.demo_parking_api.webController.Dto.UserResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
 
 public class UserModelMapper {
 
-    public static User DtotoUser(UserDto dto){
-        return new org.modelmapper.ModelMapper().map(dto, User.class);
+    public static User DtotoUser(UserCreateDto dto){
+        return new ModelMapper().map(dto, User.class);
     }
 
     // metodo de retorno para responder o a criação do usuario.
