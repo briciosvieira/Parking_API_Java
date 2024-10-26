@@ -2,8 +2,9 @@ package com.sousa.demo_parking_api.webController;
 
 import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.service.UserService;
+import com.sousa.demo_parking_api.webController.Dto.UpdatePasswordDto;
 import com.sousa.demo_parking_api.webController.Dto.UserCreateDto;
-import com.sousa.demo_parking_api.webController.Dto.mapper.UserModelMapper;
+import com.sousa.demo_parking_api.webController.mapper.UserModelMapper;
 import com.sousa.demo_parking_api.webController.Dto.UserResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,16 +44,21 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updatePassword(@PathVariable Long id ,@RequestBody User user){
-        User users = service.patchPassword(id, user.getPassword());
-        return ResponseEntity.ok(users) ;
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id ,@RequestBody UpdatePasswordDto dto){
+        User users = service.patchPassword(id, dto.getPassword(),dto.getNewPassword(), dto.getConfirmNewPassword());
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> delete(@PathVariable Long id){
-       service.getById(id);
-       service.delete(id);
-       return ResponseEntity.noContent().build();
+    public ResponseEntity<UserResponseDto> delete(@PathVariable Long id) throws Exception {
+      try {
+          service.getById(id);
+          service.delete(id);
+          return ResponseEntity.noContent().build();
+
+      } catch (Exception e) {
+          throw new Exception("Usuario não encontrado");
+      }
     }
 
 }

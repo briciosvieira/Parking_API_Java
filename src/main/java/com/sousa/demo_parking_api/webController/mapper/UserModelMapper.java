@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.webController.Dto.mapper;
+package com.sousa.demo_parking_api.webController.mapper;
 
 
 import com.sousa.demo_parking_api.entity.User;
