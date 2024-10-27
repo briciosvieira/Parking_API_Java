@@ -35,19 +35,18 @@ public class UserService {
     }
 
     @Transactional
-    public User patchPassword(Long id, String password, String newPassword,String confirmpassword) {
+    public User patchPassword(Long id, String password, String newPassword, String confirmNewPassword) {
 
         User user = getById(id);
-        if (!newPassword.equals(confirmpassword)){
+        if (!newPassword.equals(confirmNewPassword)){
             throw new RuntimeException("Senhas não conferem");
         }
 
         if (!password.equals(user.getPassword())){
             throw new RuntimeException("Sua senha esta incorreta");
         }
-
-        user.setPassword(password);
-        return user;
+        user.setPassword(newPassword);
+        return repository.save(user);
     }
 
     public void  delete(Long id) {

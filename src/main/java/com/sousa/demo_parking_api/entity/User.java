@@ -2,6 +2,8 @@ package com.sousa.demo_parking_api.entity;
 
 import com.sousa.demo_parking_api.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;

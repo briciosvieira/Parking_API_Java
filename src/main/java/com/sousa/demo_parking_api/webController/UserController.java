@@ -6,6 +6,7 @@ import com.sousa.demo_parking_api.webController.Dto.UpdatePasswordDto;
 import com.sousa.demo_parking_api.webController.Dto.UserCreateDto;
 import com.sousa.demo_parking_api.webController.mapper.UserModelMapper;
 import com.sousa.demo_parking_api.webController.Dto.UserResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> create(@RequestBody UserCreateDto userdto){
+    public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserCreateDto userdto){
         User users = service.save(UserModelMapper.DtotoUser(userdto));
         return ResponseEntity.status(HttpStatus.CREATED).body(UserModelMapper.UserToDto(users));
     }
@@ -43,22 +44,18 @@ public class UserController {
         return ResponseEntity.ok(dtos) ;
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Void> updatePassword(@PathVariable Long id ,@RequestBody UpdatePasswordDto dto){
-        User users = service.patchPassword(id, dto.getPassword(),dto.getNewPassword(), dto.getConfirmNewPassword());
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id ,@Valid @RequestBody UpdatePasswordDto dto){
+        User user = service.patchPassword(id, dto.getPassword(), dto.getNewPassword(), dto.getConfirmNewPassword());
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserResponseDto> delete(@PathVariable Long id) throws Exception {
-      try {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+
           service.getById(id);
           service.delete(id);
           return ResponseEntity.noContent().build();
-
-      } catch (Exception e) {
-          throw new Exception("Usuario não encontrado");
-      }
     }
 
 }
