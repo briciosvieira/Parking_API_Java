@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.webController.Dto;
+package com.sousa.demo_parking_api.web.Dto;
 
 
 import jakarta.validation.constraints.Email;

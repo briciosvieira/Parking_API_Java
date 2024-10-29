@@ -1,11 +1,11 @@
-package com.sousa.demo_parking_api.webController;
+package com.sousa.demo_parking_api.web.controller;
 
 import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.service.UserService;
-import com.sousa.demo_parking_api.webController.Dto.UpdatePasswordDto;
-import com.sousa.demo_parking_api.webController.Dto.UserCreateDto;
-import com.sousa.demo_parking_api.webController.mapper.UserModelMapper;
-import com.sousa.demo_parking_api.webController.Dto.UserResponseDto;
+import com.sousa.demo_parking_api.web.Dto.UpdatePasswordDto;
+import com.sousa.demo_parking_api.web.Dto.UserCreateDto;
+import com.sousa.demo_parking_api.web.mapper.UserModelMapper;
+import com.sousa.demo_parking_api.web.Dto.UserResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +46,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id ,@Valid @RequestBody UpdatePasswordDto dto){
-        User user = service.patchPassword(id, dto.getPassword(), dto.getNewPassword(), dto.getConfirmNewPassword());
+        service.patchPassword(id, dto.getPassword(), dto.getNewPassword(), dto.getConfirmNewPassword());
         return ResponseEntity.noContent().build();
     }
 
