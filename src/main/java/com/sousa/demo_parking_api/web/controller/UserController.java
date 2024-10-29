@@ -5,7 +5,7 @@ import com.sousa.demo_parking_api.service.UserService;
 import com.sousa.demo_parking_api.web.Dto.UpdatePasswordDto;
 import com.sousa.demo_parking_api.web.Dto.UserCreateDto;
 import com.sousa.demo_parking_api.web.mapper.UserModelMapper;
-import com.sousa.demo_parking_api.web.Dto.UserResponseDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.UserResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
