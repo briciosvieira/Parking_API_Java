@@ -37,10 +37,10 @@ public class ErrorMessageException {
         this.status = status.value();
         this.statusText = status.getReasonPhrase();
         this.message = message;
-        eddErrors(result);
+        addErrors(result);
     }
 
-    private void eddErrors(BindingResult result) {
+    private void addErrors(BindingResult result) {
     this.errors = new HashMap<>();
         for(FieldError fieldError: result.getFieldErrors()){
            this.errors.put(fieldError.getField(), fieldError.getDefaultMessage());
