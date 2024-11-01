@@ -2,9 +2,11 @@ package com.sousa.demo_parking_api.service;
 
 import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.repository.UserRepository;
+import com.sousa.demo_parking_api.runtimeException.UserIdNotFoundException;
 import com.sousa.demo_parking_api.runtimeException.UsernameUniqueViolationException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 
 
@@ -20,27 +22,30 @@ public class UserService {
         this.repository = repository;
     }
 
-
+    //save
     @Transactional
     public User save(User user) {
         try {
             return repository.save(user);
 
-        } catch (DataIntegrityViolationException exception){
+        } catch (DataIntegrityViolationException ex){
            throw new  UsernameUniqueViolationException(String.format("Username %s ja cadastrado",user.getUsername()));
         }
     }
 
+    //getById
     @Transactional
     public User getById(Long id){
-        return repository.findById(id).orElseThrow(()->  new  RuntimeException("Usuário não encontado"));
+            return repository.findById(id).orElseThrow(()->new UserIdNotFoundException("Usuário não encontrado"));
     }
 
+    //getAll
     @Transactional
     public List<User> getAll() {
         return repository.findAll();
     }
 
+    //Patch
     @Transactional
     public User patchPassword(Long id, String password, String newPassword, String confirmNewPassword) {
 
@@ -56,6 +61,7 @@ public class UserService {
         return repository.save(user);
     }
 
+    //Delete
     public void  delete(Long id) {
         User user = getById(id);
        repository.delete(user);

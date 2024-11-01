@@ -17,9 +17,11 @@ public class UserModelMapper {
     // metodo de retorno para responder o a criação do usuario.
     public static UserResponseDto UserToDto (User user){
         String role = user.getRole().name().substring("ROLE_".length());
+
         PropertyMap<User, UserResponseDto> props = new PropertyMap<User, UserResponseDto>() {
             @Override
             protected void configure() {
+
                 map().setRole(role);
             }
         };
