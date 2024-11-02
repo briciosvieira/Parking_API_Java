@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -27,21 +26,20 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserCreateDto userdto){
-        User users = service.save(UserModelMapper.DtotoUser(userdto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserModelMapper.UserToDto(users));
+        User users = service.save(UserModelMapper.toUser(userdto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserModelMapper.ToDto(users));
     }
 
     @GetMapping("/{id}")
     public  ResponseEntity<UserResponseDto> getById(@PathVariable Long id ){
         User user = service.getById(id);
-        return ResponseEntity.ok(UserModelMapper.UserToDto(user));
+        return ResponseEntity.ok(UserModelMapper.ToDto(user));
     }
 
     @GetMapping
     public ResponseEntity<List<UserResponseDto>> getAll(){
         List<User> users = service.getAll();
-        List<UserResponseDto> dtos = users.stream().map(UserModelMapper::UserToDto).collect(Collectors.toList());
-        return ResponseEntity.ok(dtos) ;
+        return ResponseEntity.ok(UserModelMapper.toListDto(users)) ;
     }
 
     @PutMapping("/{id}")

@@ -2,12 +2,13 @@ package com.sousa.demo_parking_api.service;
 
 import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.repository.UserRepository;
-import com.sousa.demo_parking_api.runtimeException.UserIdNotFoundException;
+import com.sousa.demo_parking_api.runtimeException.EntityNotFoundException;
+import com.sousa.demo_parking_api.runtimeException.PasswordInvalidException;
 import com.sousa.demo_parking_api.runtimeException.UsernameUniqueViolationException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
+
 
 
 import java.util.List;
@@ -34,9 +35,9 @@ public class UserService {
     }
 
     //getById
-    @Transactional
+    @Transactional()
     public User getById(Long id){
-            return repository.findById(id).orElseThrow(()->new UserIdNotFoundException("Usuário não encontrado"));
+            return repository.findById(id).orElseThrow(()->new EntityNotFoundException("Usuário não encontrado"));
     }
 
     //getAll
@@ -49,16 +50,18 @@ public class UserService {
     @Transactional
     public User patchPassword(Long id, String password, String newPassword, String confirmNewPassword) {
 
-        User user = getById(id);
+
         if (!newPassword.equals(confirmNewPassword)){
-            throw new RuntimeException("Senhas não conferem");
+            throw new PasswordInvalidException("Senhas não conferem");
         }
 
+        User user = getById(id);
         if (!password.equals(user.getPassword())){
-            throw new RuntimeException("Sua senha esta incorreta");
+            throw new PasswordInvalidException("Sua senha esta incorreta");
         }
-        user.setPassword(newPassword);
-        return repository.save(user);
+
+            user.setPassword(newPassword);
+            return repository.save(user);
     }
 
     //Delete
