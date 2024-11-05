@@ -47,6 +47,8 @@ public class ErrorMessageException {
     this.errors = new HashMap<>();
         for(FieldError fieldError: result.getFieldErrors()){
            this.errors.put(fieldError.getField(), fieldError.getDefaultMessage());
+
         }
     }
+
 }
