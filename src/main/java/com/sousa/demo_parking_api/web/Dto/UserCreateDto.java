@@ -4,14 +4,12 @@ package com.sousa.demo_parking_api.web.Dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
 public class UserCreateDto {
 
     @NotBlank(message = "E-mail é obrigatório")
