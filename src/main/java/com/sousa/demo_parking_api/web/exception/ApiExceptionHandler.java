@@ -21,58 +21,58 @@ public class ApiExceptionHandler {
 
     //Bad Request erro de campo de senha
     @ExceptionHandler(PasswordInvalidException.class)
-    public ResponseEntity<ErrorMessageException> passwordInvalidException(RuntimeException ex,
-                                                                          HttpServletRequest request
+    public ResponseEntity<ErrorMessageExc> passwordInvalidException(RuntimeException ex,
+                                                                    HttpServletRequest request
                                                                         ){
         log.error("Api error", ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessageException(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
+                .body(new ErrorMessageExc(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
 
     }
 
     //argumento enviado não é válido // ex: campo faltando caracteres ou senha fora do padrão
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorMessageException> methodArgumentNotValidException(MethodArgumentNotValidException ex,
-                                                                                 HttpServletRequest request,
-                                                                                 BindingResult result){
+    public ResponseEntity<ErrorMessageExc> methodArgumentNotValidException(MethodArgumentNotValidException ex,
+                                                                           HttpServletRequest request,
+                                                                           BindingResult result){
         log.error("Api error", ex);
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessageException(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo Invalido", result));
+                .body(new ErrorMessageExc(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo Invalido", result));
 
     }
 
     //Bad request
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorMessageException> httpMessageNotReadableException(HttpMessageNotReadableException ex,
-                                                                                 HttpServletRequest request){
+    public ResponseEntity<ErrorMessageExc> httpMessageNotReadableException(HttpMessageNotReadableException ex,
+                                                                           HttpServletRequest request){
         log.error("Api error", ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessageException(request, HttpStatus.BAD_REQUEST, "Verifique os campos e tente novamente."));
+                .body(new ErrorMessageExc(request, HttpStatus.BAD_REQUEST, "Verifique os campos e tente novamente."));
 
     }
 
     // username unique// bloqueio de nomes repetidos
     @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessageException> usernameUniqueViolationException(RuntimeException ex,
-                                                                                  HttpServletRequest request){
+    public ResponseEntity<ErrorMessageExc> usernameUniqueViolationException(RuntimeException ex,
+                                                                            HttpServletRequest request){
         log.error("Api error 500", ex);
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessageException(request, HttpStatus.CONFLICT, ex.getMessage()));
+                .body(new ErrorMessageExc(request, HttpStatus.CONFLICT, ex.getMessage()));
 
     }
 
     // error 404, erro interno.
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorMessageException> entityNotFoundException(RuntimeException ex,
-                                                                HttpServletRequest request){
+    public ResponseEntity<ErrorMessageExc> entityNotFoundException(RuntimeException ex,
+                                                                   HttpServletRequest request){
         log.error("Api error 500", ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessageException(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+                .body(new ErrorMessageExc(request, HttpStatus.NOT_FOUND, ex.getMessage()));
 
     }
 }

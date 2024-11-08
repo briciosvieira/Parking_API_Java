@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Getter
 @ToString
-public class ErrorMessageException {
+public class ErrorMessageExc {
     private String path;
     private String method;
     private int status;
@@ -23,10 +23,10 @@ public class ErrorMessageException {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String > errors;
 
-    public ErrorMessageException() {
+    public ErrorMessageExc() {
     }
 
-    public ErrorMessageException(HttpServletRequest request, HttpStatus status, String message) {
+    public ErrorMessageExc(HttpServletRequest request, HttpStatus status, String message) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -34,7 +34,7 @@ public class ErrorMessageException {
         this.message = message;
     }
 
-    public ErrorMessageException(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
+    public ErrorMessageExc(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
