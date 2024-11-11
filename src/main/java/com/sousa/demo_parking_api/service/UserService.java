@@ -1,6 +1,7 @@
 package com.sousa.demo_parking_api.service;
 
 import com.sousa.demo_parking_api.entity.User;
+import com.sousa.demo_parking_api.enums.Role;
 import com.sousa.demo_parking_api.repository.UserRepository;
 import com.sousa.demo_parking_api.runtimeException.EntityNotFoundException;
 import com.sousa.demo_parking_api.runtimeException.PasswordInvalidException;
@@ -68,5 +69,14 @@ public class UserService {
     public void  delete(Long id) {
         User user = getById(id);
        repository.delete(user);
+    }
+
+    public User findByUsername(String username) {
+        return repository.findByUsername(username).orElseThrow(()->new
+                EntityNotFoundException(String.format("Usuário com o login: %s não encontrado", username)));
+    }
+
+    public Role findRoleByUsername(String username) {
+        return repository.findRoleByUsername(username);
     }
 }

@@ -26,15 +26,18 @@ public class JwtUtils {
     public JwtUtils() {
     }
 
+
     private static Key generateKey(){
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }
+
 
     private static Date toExpireDate( Date start){
         LocalDateTime dateTime = start.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         LocalDateTime end = dateTime.plusDays(EXPIRE_DAYS).plusHours(EXPIRE_HOURS).plusMinutes(EXPIRE_MINUTES);
         return Date.from(end.atZone(ZoneId.systemDefault()).toInstant());
     }
+
 
     public static JwtToken createToken(String username, String role){
         Date issueAt = new Date();
@@ -51,17 +54,21 @@ public class JwtUtils {
         return new JwtToken(token);
     }
 
-    private static  String refectorToken(String token){
+
+    private static  String removeBearerPrefix(String token){
         if (token.contains(JWT_BEARER)){
             return token.substring(JWT_BEARER.length());
         }
         return token;
     }
 
-    private static Claims getClaimsFronToken(String token){
+
+    private static Claims extractClaimsFromToken(String token){
         try {
-            return Jwts.parser().setSigningKey(generateKey()).build()
-                    .parseClaimsJws(refectorToken(token)).getBody();
+            return Jwts.parser()
+                    .setSigningKey(generateKey())
+                    .build()
+                    .parseClaimsJws(removeBearerPrefix(token)).getBody();
 
         } catch (JwtException e){
             log.error(String.format("token invalido", e.getMessage()));
@@ -69,14 +76,18 @@ public class JwtUtils {
         return null;
     }
 
-    public static String getUsernameFronToken(String token){
-        return getClaimsFronToken(token).getSubject();
+
+    public static String getUsernameFromToken(String token){
+        return extractClaimsFromToken(token).getSubject();
     }
+
 
     public static boolean isTokenValid(String token){
         try {
-            Jwts.parser().setSigningKey(generateKey()).build()
-                    .parseClaimsJws(refectorToken(token));
+            Jwts.parser()
+                    .setSigningKey(generateKey())
+                    .build()
+                    .parseClaimsJws(removeBearerPrefix(token));
             return true;
         } catch (JwtException e){
             log.error(String.format("token invalido", e.getMessage()));
