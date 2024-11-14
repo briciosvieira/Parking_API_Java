@@ -21,7 +21,7 @@ public class JwtUtils {
     public static final String SECRET_KEY = "123456789-123456789-123456789-12";
     public static final long EXPIRE_DAYS = 0;
     public static final long EXPIRE_HOURS = 0;
-    public static final long EXPIRE_MINUTES = 2;
+    public static final long EXPIRE_MINUTES = 30;
 
     public JwtUtils() {
     }
@@ -43,7 +43,7 @@ public class JwtUtils {
         Date issueAt = new Date();
         Date limit = toExpireDate(issueAt);
 
-        String token = Jwts.builder()
+        String token = Jwts.builder().setHeaderParam("typ","JWT")
                 .subject(username)
                 .issuedAt(issueAt)
                 .expiration(limit)
@@ -55,7 +55,7 @@ public class JwtUtils {
     }
 
 
-    private static  String removeBearerPrefix(String token){
+    private static String removeBearerPrefix(String token){
         if (token.contains(JWT_BEARER)){
             return token.substring(JWT_BEARER.length());
         }
@@ -63,7 +63,7 @@ public class JwtUtils {
     }
 
 
-    private static Claims extractClaimsFromToken(String token){
+    private static Claims getClaimsFromToken(String token){
         try {
             return Jwts.parser()
                     .setSigningKey(generateKey())
@@ -78,7 +78,7 @@ public class JwtUtils {
 
 
     public static String getUsernameFromToken(String token){
-        return extractClaimsFromToken(token).getSubject();
+        return getClaimsFromToken(token).getSubject();
     }
 
 

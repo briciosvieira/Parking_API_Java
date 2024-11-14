@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 public class AuthenticationController {
 
     private final JwtUserDetailsService detailsService;
@@ -33,7 +33,6 @@ public class AuthenticationController {
             authenticationManager.authenticate(authenticationToken);
 
             JwtToken token = detailsService.getTokenAuthenticated(dto.getUsername());
-
             return  ResponseEntity.ok(token);
 
         } catch (AuthenticationException e) {

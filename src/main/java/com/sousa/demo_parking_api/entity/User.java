@@ -29,7 +29,7 @@ public class User implements Serializable {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, length = 15)
+    @Column(name = "role", nullable = false)
     private Role role = Role.ROLE_CLIENTE;
 
     @Column(name = "date_creation")

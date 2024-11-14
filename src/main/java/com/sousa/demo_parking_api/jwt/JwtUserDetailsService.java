@@ -5,6 +5,7 @@ import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.enums.Role;
 import com.sousa.demo_parking_api.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
+    @Autowired
     private final UserService userService;
 
     @Override
@@ -22,9 +24,9 @@ public class JwtUserDetailsService implements UserDetailsService {
         return new JwtUserDetails(user);
     }
 
-    public JwtToken getTokenAuthenticated(String username){
-      Role role = userService.findRoleByUsername(username);
-      return JwtUtils.createToken(username, role.name().substring("ROLE_".length()));
-
+    public JwtToken getTokenAuthenticated(String username) {
+        Role role = userService.findRoleByUsername(username);
+        String roleName = role.name().substring("ROLE_".length());
+        return JwtUtils.createToken(username, roleName);
     }
 }

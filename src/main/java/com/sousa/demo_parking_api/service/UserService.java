@@ -7,7 +7,9 @@ import com.sousa.demo_parking_api.runtimeException.EntityNotFoundException;
 import com.sousa.demo_parking_api.runtimeException.PasswordInvalidException;
 import com.sousa.demo_parking_api.runtimeException.UsernameUniqueViolationException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -18,16 +20,22 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository repository;
 
-    public UserService(UserRepository repository) {
+
+    private  UserRepository repository;
+
+    private PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     //save
     @Transactional
     public User save(User user) {
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return repository.save(user);
 
         } catch (DataIntegrityViolationException ex){
@@ -57,24 +65,27 @@ public class UserService {
         }
 
         User user = getById(id);
-        if (!password.equals(user.getPassword())){
+        if (!passwordEncoder.matches(password, user.getPassword())){
             throw new PasswordInvalidException("Sua senha esta incorreta");
         }
 
-            user.setPassword(newPassword);
+            user.setPassword(passwordEncoder.encode(newPassword));
             return repository.save(user);
     }
 
     //Delete
+    @Transactional
     public void  delete(Long id) {
         User user = getById(id);
        repository.delete(user);
     }
 
+    @Transactional
     public User findByUsername(String username) {
         return repository.findByUsername(username).orElseThrow(()->new
                 EntityNotFoundException(String.format("Usuário com o login: %s não encontrado", username)));
     }
+
 
     public Role findRoleByUsername(String username) {
         return repository.findRoleByUsername(username);

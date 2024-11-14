@@ -1,5 +1,6 @@
 package com.sousa.demo_parking_api.config;
 
+import com.sousa.demo_parking_api.jwt.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebSecurity
@@ -24,11 +26,20 @@ public class SpringSecurityConfig {
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .cors(cors -> cors.configure(http))
-                .authorizeHttpRequests(auth ->auth.requestMatchers(
-                        HttpMethod.POST, "api/v1/users")
-                        .permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth ->auth
+                        .requestMatchers(HttpMethod.POST, "api/v1/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "api/v1/auth").permitAll()
+                        .anyRequest().authenticated())
                         .sessionManagement( session -> session.sessionCreationPolicy(
-                        SessionCreationPolicy.STATELESS)).build();
+                        SessionCreationPolicy.STATELESS))
+                .addFilterBefore(
+                        jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class
+                ).build();
+    }
+
+    @Bean
+    public JwtAuthorizationFilter jwtAuthorizationFilter(){
+        return new JwtAuthorizationFilter();
     }
 
     @Bean
@@ -37,7 +48,7 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authentication) throws Exception {
+        return authentication.getAuthenticationManager();
     }
 }
