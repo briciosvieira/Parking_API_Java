@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class AuthenticationController {
 
-    private final JwtUserDetailsService detailsService;
+    private final JwtUserDetailsService jwtUserDetailsService;
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/auth")
@@ -32,7 +32,7 @@ public class AuthenticationController {
                     new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
             authenticationManager.authenticate(authenticationToken);
 
-            JwtToken token = detailsService.getTokenAuthenticated(dto.getUsername());
+            JwtToken token = jwtUserDetailsService.getTokenAuthenticated(dto.getUsername());
             return  ResponseEntity.ok(token);
 
         } catch (AuthenticationException e) {

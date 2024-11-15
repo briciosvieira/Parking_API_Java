@@ -86,7 +86,7 @@ public class UserService {
                 EntityNotFoundException(String.format("Usuário com o login: %s não encontrado", username)));
     }
 
-
+    @Transactional
     public Role findRoleByUsername(String username) {
         return repository.findRoleByUsername(username);
     }

@@ -10,6 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter@Setter
 public class JwtToken {
-
     private String token;
 }

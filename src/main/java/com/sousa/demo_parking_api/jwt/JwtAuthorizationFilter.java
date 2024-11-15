@@ -18,10 +18,12 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JwtUserDetailsService detailsService;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
         final String token = request.getHeader(JwtTokenUtils.JWT_AUTHORIZATION);
 
@@ -45,7 +47,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private void toAuthentication(HttpServletRequest request, String username) {
-        UserDetails userDetails = detailsService.loadUserByUsername(username);
+        UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
 
         UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken
                 .authenticated(userDetails, null, userDetails.getAuthorities());
