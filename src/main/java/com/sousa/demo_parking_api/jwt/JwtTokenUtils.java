@@ -14,16 +14,16 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @Slf4j
-public class JwtUtils {
+public class JwtTokenUtils {
 
-    public static final String JWT_BEARER = "Bearer";
+    public static final String JWT_BEARER = "Bearer ";
     public static final String JWT_AUTHORIZATION = "Authorization";
     public static final String SECRET_KEY = "123456789-123456789-123456789-12";
     public static final long EXPIRE_DAYS = 0;
     public static final long EXPIRE_HOURS = 0;
     public static final long EXPIRE_MINUTES = 30;
 
-    public JwtUtils() {
+    public JwtTokenUtils() {
     }
 
 

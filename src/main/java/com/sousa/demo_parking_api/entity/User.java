@@ -1,5 +1,6 @@
 package com.sousa.demo_parking_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sousa.demo_parking_api.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -33,7 +34,8 @@ public class User implements Serializable {
     private Role role = Role.ROLE_CLIENTE;
 
     @Column(name = "date_creation")
-    private LocalDateTime dateCreation;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dateCreation = LocalDateTime.now();
 
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;

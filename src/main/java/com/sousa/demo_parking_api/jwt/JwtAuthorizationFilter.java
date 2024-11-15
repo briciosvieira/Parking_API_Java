@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,23 +23,24 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        final String token = request.getHeader(JwtUtils.JWT_AUTHORIZATION);
+        final String token = request.getHeader(JwtTokenUtils.JWT_AUTHORIZATION);
 
-        if (token == null || !token.startsWith(JwtUtils.JWT_BEARER)) {
+        if (token == null || !token.startsWith(JwtTokenUtils.JWT_BEARER)) {
             log.info("Jwt token esta nulo, vazio ou não iniciado com o Bearer ");
             filterChain.doFilter(request, response);
             return;
         }
-            if (!JwtUtils.isTokenValid(token)){
+            if (!JwtTokenUtils.isTokenValid(token)){
                 log.warn("Jwt token invalido ou expirado");
+
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            String username = JwtUtils.getUsernameFromToken(token);
+            String username = JwtTokenUtils.getUsernameFromToken(token);
             toAuthentication(request, username);
-
             filterChain.doFilter(request, response);
+
 
     }
 
