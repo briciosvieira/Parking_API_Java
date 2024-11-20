@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -23,7 +23,6 @@ public class UserService {
 
 
     private  UserRepository repository;
-
     private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
@@ -66,10 +65,11 @@ public class UserService {
 
         User user = getById(id);
         if (!passwordEncoder.matches(password, user.getPassword())){
-            throw new PasswordInvalidException("Sua senha esta incorreta");
+            throw new PasswordInvalidException("Senha esta incorreta");
         }
 
             user.setPassword(passwordEncoder.encode(newPassword));
+            user.setDateUpdate(LocalDateTime.now());
             return repository.save(user);
     }
 

@@ -1,11 +1,11 @@
 package com.sousa.demo_parking_api.entity;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sousa.demo_parking_api.enums.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,6 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter@Setter
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User implements Serializable {
 
     @Id
@@ -37,12 +38,15 @@ public class User implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dateCreation = LocalDateTime.now();
 
+
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
+    @CreatedBy
     @Column(name = "create_by")
     private String createBy;
 
+    @LastModifiedBy
     @Column(name = "update_by")
     private String updateBy;
 

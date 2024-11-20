@@ -49,11 +49,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private void toAuthentication(HttpServletRequest request, String username) {
         UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
 
-        UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken
+        var authenticationToken = UsernamePasswordAuthenticationToken
                 .authenticated(userDetails, null, userDetails.getAuthorities());
 
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
     }
 }

@@ -28,8 +28,7 @@ public class AuthenticationController {
     public ResponseEntity<Object> authenticate(@RequestBody @Valid UserLoginDto dto, HttpServletRequest request){
         log.info("Informação", dto.getUsername());
         try {
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
+            var authenticationToken = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
             authenticationManager.authenticate(authenticationToken);
 
             JwtToken token = jwtUserDetailsService.getTokenAuthenticated(dto.getUsername());
