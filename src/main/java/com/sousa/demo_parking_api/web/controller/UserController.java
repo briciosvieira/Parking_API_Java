@@ -16,10 +16,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@EnableMethodSecurity
 @Tag(name = "Crud para usuários")
 @RestController
 @RequestMapping("api/v1/users")
@@ -54,7 +57,9 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = "Usuário não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageExc.class)))
             })
+
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') || (hasRole('CLIENTE') AND #id == principal.id)")
     public  ResponseEntity<UserResponseDto> getById(@PathVariable Long id ){
         User user = service.getById(id);
         return ResponseEntity.ok(UserModelMapper.ToDto(user));
@@ -69,6 +74,7 @@ public class UserController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageExc.class))),
             })
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponseDto>> getAll(){
         List<User> users = service.getAll();
         return ResponseEntity.ok(UserModelMapper.toListDto(users)) ;
@@ -84,6 +90,7 @@ public class UserController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageExc.class)))
             })
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') || (hasRole('CLIENTE') AND #id == principal.id)")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id ,@Valid @RequestBody UpdatePasswordDto dto){
         service.patchPassword(id, dto.getPassword(), dto.getNewPassword(), dto.getConfirmNewPassword());
         return ResponseEntity.noContent().build();
@@ -98,6 +105,7 @@ public class UserController {
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageExc.class)))
             })
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
           service.getById(id);
           service.delete(id);
