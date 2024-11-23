@@ -4,7 +4,7 @@ package com.sousa.demo_parking_api;
 import com.sousa.demo_parking_api.web.Dto.UpdatePasswordDto;
 import com.sousa.demo_parking_api.web.Dto.UserCreateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.UserResponseDto;
-import com.sousa.demo_parking_api.web.exception.ErrorMessageExc;
+import com.sousa.demo_parking_api.exception.ErrorMessageException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +43,13 @@ public class UserIntregation {
 
     @Test
     public void createUsers_withUsernameInvalid_returnErroMessage422(){
-        ErrorMessageExc responseBody = testClient.post()
+        ErrorMessageException responseBody = testClient.post()
                 .uri("/api/v1/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new UserCreateDto("", "123456"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(ErrorMessageExc.class)
+                .expectBody(ErrorMessageException.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();
@@ -62,7 +62,7 @@ public class UserIntregation {
                 .bodyValue(new UserCreateDto("fabricio@", "123456"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(ErrorMessageExc.class)
+                .expectBody(ErrorMessageException.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();
@@ -75,7 +75,7 @@ public class UserIntregation {
                 .bodyValue(new UserCreateDto("fabricio@gmail.c", "123456"))
                 .exchange()
                 .expectStatus().isEqualTo(422)
-                .expectBody(ErrorMessageExc.class)
+                .expectBody(ErrorMessageException.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();
@@ -101,11 +101,11 @@ public class UserIntregation {
 
   @Test
     public void infById_User_with_ErrorMessage_Status_code404(){
-        ErrorMessageExc responseBody = testClient.get()
+        ErrorMessageException responseBody = testClient.get()
                 .uri("/api/v1/users/109")
                 .exchange()
                 .expectStatus().isNotFound()
-                .expectBody(ErrorMessageExc.class)
+                .expectBody(ErrorMessageException.class)
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();

@@ -1,9 +1,9 @@
-package com.sousa.demo_parking_api.web.controller;
+package com.sousa.demo_parking_api.controller;
 
 import com.sousa.demo_parking_api.jwt.JwtToken;
 import com.sousa.demo_parking_api.jwt.JwtUserDetailsService;
 import com.sousa.demo_parking_api.web.Dto.UserLoginDto;
-import com.sousa.demo_parking_api.web.exception.ErrorMessageExc;
+import com.sousa.demo_parking_api.exception.ErrorMessageException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +37,6 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             log.warn("Error, Bad Credentials");
         }
-        return ResponseEntity.badRequest().body(new ErrorMessageExc(request, HttpStatus.BAD_REQUEST, "Credenciais inválidas"));
+        return ResponseEntity.badRequest().body(new ErrorMessageException(request, HttpStatus.BAD_REQUEST, "Credenciais inválidas"));
     }
 }

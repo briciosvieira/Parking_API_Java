@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.web.exception;
+package com.sousa.demo_parking_api.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Getter
 @ToString
-public class ErrorMessageExc {
+public class ErrorMessageException {
     private String path;
     private String method;
     private int status;
@@ -23,10 +23,10 @@ public class ErrorMessageExc {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String > errors;
 
-    public ErrorMessageExc() {
+    public ErrorMessageException() {
     }
 
-    public ErrorMessageExc(HttpServletRequest request, HttpStatus status, String message) {
+    public ErrorMessageException(HttpServletRequest request, HttpStatus status, String message) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
@@ -34,7 +34,7 @@ public class ErrorMessageExc {
         this.message = message;
     }
 
-    public ErrorMessageExc(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
+    public ErrorMessageException(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
         this.path = request.getRequestURI();
         this.method = request.getMethod();
         this.status = status.value();
