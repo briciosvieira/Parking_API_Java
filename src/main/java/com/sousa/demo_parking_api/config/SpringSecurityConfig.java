@@ -36,7 +36,6 @@ public class SpringSecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(auth ->auth
-                        .requestMatchers(HttpMethod.POST, "api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "api/v1/auth").permitAll()
                         .requestMatchers(DOCUMENTATION_OPENAPI).permitAll()
                         .anyRequest().authenticated())

@@ -1,8 +1,8 @@
-package com.sousa.demo_parking_api.exception;
+package com.sousa.demo_parking_api.web.exception;
 
-import com.sousa.demo_parking_api.runtimeException.EntityNotFoundException;
-import com.sousa.demo_parking_api.runtimeException.PasswordInvalidException;
-import com.sousa.demo_parking_api.runtimeException.UsernameUniqueViolationException;
+import com.sousa.demo_parking_api.customException.EntityNotFoundException;
+import com.sousa.demo_parking_api.customException.PasswordInvalidException;
+import com.sousa.demo_parking_api.customException.UsernameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -4,7 +4,7 @@ package com.sousa.demo_parking_api;
 import com.sousa.demo_parking_api.web.Dto.UpdatePasswordDto;
 import com.sousa.demo_parking_api.web.Dto.UserCreateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.UserResponseDto;
-import com.sousa.demo_parking_api.exception.ErrorMessageException;
+import com.sousa.demo_parking_api.web.exception.ErrorMessageException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

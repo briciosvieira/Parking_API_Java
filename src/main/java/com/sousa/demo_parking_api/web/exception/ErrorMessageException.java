@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.exception;
+package com.sousa.demo_parking_api.web.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;

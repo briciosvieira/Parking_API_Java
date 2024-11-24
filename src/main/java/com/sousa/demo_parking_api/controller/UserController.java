@@ -4,7 +4,7 @@ import com.sousa.demo_parking_api.entity.User;
 import com.sousa.demo_parking_api.service.UserService;
 import com.sousa.demo_parking_api.web.Dto.UpdatePasswordDto;
 import com.sousa.demo_parking_api.web.Dto.UserCreateDto;
-import com.sousa.demo_parking_api.exception.ErrorMessageException;
+import com.sousa.demo_parking_api.web.exception.ErrorMessageException;
 import com.sousa.demo_parking_api.web.mapper.UserModelMapper;
 import com.sousa.demo_parking_api.web.Dto.responseDto.UserResponseDto;
 import io.swagger.v3.oas.annotations.Operation;

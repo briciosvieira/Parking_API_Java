@@ -17,7 +17,7 @@ public class UserModelMapper {
         return new ModelMapper().map(dto, User.class);
     }
 
-    // metodo de retorno para responder o a criação do usuario.
+    // metodo de retorno para responder a criação do usuario.
     public static UserResponseDto ToDto(User user){
         String role = user.getRole().name().substring("ROLE_".length());
 
