@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.jwt;
+package com.sousa.demo_parking_api.customException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

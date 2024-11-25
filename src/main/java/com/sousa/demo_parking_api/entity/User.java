@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
@@ -35,8 +36,8 @@ public class User implements Serializable {
     private Role role = Role.ROLE_CLIENTE;
 
     @Column(name = "date_creation")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dateCreate = LocalDateTime.now();
+    @LastModifiedDate
+    private LocalDateTime dateCreate;
 
 
     @Column(name = "date_update")

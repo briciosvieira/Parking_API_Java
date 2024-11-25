@@ -19,15 +19,14 @@ import java.util.List;
 @Service
 public class UserService {
 
-
-
     private  UserRepository repository;
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
+    public UserService(PasswordEncoder passwordEncoder, UserRepository repository) {
         this.passwordEncoder = passwordEncoder;
+        this.repository = repository;
     }
+
 
     //save
     @Transactional
@@ -43,7 +42,7 @@ public class UserService {
 
     //getById
     @Transactional()
-    public User getById(Long id){
+    public User findById(Long id){
             return repository.findById(id).orElseThrow(()->new EntityNotFoundException("Usuário não encontrado"));
     }
 
@@ -62,7 +61,7 @@ public class UserService {
             throw new PasswordInvalidException("Senhas não conferem");
         }
 
-        User user = getById(id);
+        User user = findById(id);
         if (!passwordEncoder.matches(password, user.getPassword())){
             throw new PasswordInvalidException("Senha esta incorreta");
         }
@@ -75,7 +74,7 @@ public class UserService {
     //Delete
     @Transactional
     public void  delete(Long id) {
-        User user = getById(id);
+        User user = findById(id);
        repository.delete(user);
     }
 

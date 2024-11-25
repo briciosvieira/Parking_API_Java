@@ -19,7 +19,7 @@ public class UserResponseDto {
     private String role;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dateCreation;
+    private LocalDateTime dateCreate;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonFormat(pattern = "dd/MM/yyyy")

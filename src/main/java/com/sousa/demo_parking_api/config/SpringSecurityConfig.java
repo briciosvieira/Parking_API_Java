@@ -1,6 +1,6 @@
 package com.sousa.demo_parking_api.config;
 
-import com.sousa.demo_parking_api.jwt.CustomAuthenticationEntryPoint;
+import com.sousa.demo_parking_api.customException.CustomAuthenticationEntryPoint;
 import com.sousa.demo_parking_api.jwt.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +36,7 @@ public class SpringSecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .cors(cors -> cors.configure(http))
                 .authorizeHttpRequests(auth ->auth
+                        .requestMatchers(HttpMethod.POST, "api/v1/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "api/v1/auth").permitAll()
                         .requestMatchers(DOCUMENTATION_OPENAPI).permitAll()
                         .anyRequest().authenticated())

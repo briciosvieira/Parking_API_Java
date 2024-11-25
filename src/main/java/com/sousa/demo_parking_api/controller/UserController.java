@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,13 +27,10 @@ import java.util.List;
 @Tag(name = "Crud para usuários")
 @RestController
 @RequestMapping("api/v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService service;
-
-    public UserController(UserService service) {
-        this.service = service;
-    }
 
     @Operation(summary = "Criar um novo usuário", description = "Api desenvolvida para estudos",
         responses = {
@@ -61,7 +59,7 @@ public class UserController {
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') || (hasAnyRole('CLIENTE','VISITANTE') AND #id == principal.id)")
     public  ResponseEntity<UserResponseDto> getById(@PathVariable Long id ){
-        User user = service.getById(id);
+        User user = service.findById(id);
         return ResponseEntity.ok(UserModelMapper.ToDto(user));
     }
 
@@ -107,7 +105,7 @@ public class UserController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-          service.getById(id);
+          service.findById(id);
           service.delete(id);
           return ResponseEntity.noContent().build();
     }

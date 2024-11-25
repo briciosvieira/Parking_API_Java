@@ -1,5 +1,6 @@
 package com.sousa.demo_parking_api.web.exception;
 
+import com.sousa.demo_parking_api.customException.CpfUniqueViolationException;
 import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.customException.PasswordInvalidException;
 import com.sousa.demo_parking_api.customException.UsernameUniqueViolationException;
@@ -71,9 +72,20 @@ public class ApiExceptionHandler {
 
     }
 
-    // username unique// bloqueio de nomes repetidos
+    // username unique
     @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessageException> usernameUniqueViolationException(RuntimeException ex,
+    public ResponseEntity<ErrorMessageException> usernameUniqueViolationException(UsernameUniqueViolationException ex,
+                                                                                  HttpServletRequest request){
+        log.error("Api error 500", ex);
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessageException(request, HttpStatus.CONFLICT, ex.getMessage()));
+
+    }
+
+    //CPF unique
+    @ExceptionHandler(CpfUniqueViolationException.class)
+    public ResponseEntity<ErrorMessageException> cpfUniqueViolationException(CpfUniqueViolationException ex,
                                                                                   HttpServletRequest request){
         log.error("Api error 500", ex);
         return ResponseEntity.status(HttpStatus.CONFLICT)
