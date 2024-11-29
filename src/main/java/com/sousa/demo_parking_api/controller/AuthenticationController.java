@@ -2,7 +2,7 @@ package com.sousa.demo_parking_api.controller;
 
 import com.sousa.demo_parking_api.jwt.JwtToken;
 import com.sousa.demo_parking_api.jwt.JwtUserDetailsService;
-import com.sousa.demo_parking_api.web.Dto.UserLoginDto;
+import com.sousa.demo_parking_api.web.Dto.userDto.UserLoginDto;
 import com.sousa.demo_parking_api.web.exception.ErrorMessageException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

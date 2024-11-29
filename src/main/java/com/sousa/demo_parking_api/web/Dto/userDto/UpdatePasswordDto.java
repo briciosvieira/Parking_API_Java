@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.web.Dto;
+package com.sousa.demo_parking_api.web.Dto.userDto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

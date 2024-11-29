@@ -2,7 +2,7 @@ package com.sousa.demo_parking_api.web.mapper;
 
 
 import com.sousa.demo_parking_api.entity.User;
-import com.sousa.demo_parking_api.web.Dto.UserCreateDto;
+import com.sousa.demo_parking_api.web.Dto.userDto.UserCreateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.UserResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
