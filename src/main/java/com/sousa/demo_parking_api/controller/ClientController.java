@@ -10,7 +10,10 @@ import com.sousa.demo_parking_api.web.Dto.clienteDto.ClienteUpdateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ClientResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,18 +22,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-@EnableMethodSecurity
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/clientes")
 public class ClientController {
-    @Autowired
-    private ClientService clientservice;
-    @Autowired
-    private UserService userService;
+
+    private final ClientService clientservice;
+    private final UserService userService;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN') || hasAnyRole('CLIENTE')")
     public ResponseEntity<ClientResponseDto> create (@RequestBody @Valid ClientCreateDto dto,
                                                      @AuthenticationPrincipal JwtUserDetails details) throws CpfUniqueViolationException {
         Client client = ClientModelMapper.toClient(dto);
@@ -46,9 +46,9 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientResponseDto>> findAll(){
-        List<Client> client =  clientservice.findAll();
-        return ResponseEntity.ok(ClientModelMapper.listClient(client));
+    public ResponseEntity<Page<Client>> findAll(Pageable pageable){
+        Page<Client> client =  clientservice.findAll(pageable);
+        return ResponseEntity.ok(client);
     }
 
     @PatchMapping("/{id}")

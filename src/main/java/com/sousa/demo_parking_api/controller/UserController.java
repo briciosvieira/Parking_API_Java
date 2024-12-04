@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@EnableMethodSecurity
+
 @Tag(name = "Crud para usuários")
 @RestController
 @RequestMapping("api/v1/users")
@@ -57,7 +57,7 @@ public class UserController {
             })
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') || (hasAnyRole('CLIENTE','VISITANTE') AND #id == principal.id)")
+    @PreAuthorize("hasRole('ADMIN')")
     public  ResponseEntity<UserResponseDto> findById(@PathVariable Long id ){
         User user = service.findById(id);
         return ResponseEntity.ok(UserModelMapper.ToDto(user));

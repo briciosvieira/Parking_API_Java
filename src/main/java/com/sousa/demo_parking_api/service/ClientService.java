@@ -6,8 +6,11 @@ import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.entity.Client;
 import com.sousa.demo_parking_api.repository.ClientRepository;
 import jakarta.transaction.Transactional;
+import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,9 +37,8 @@ public class ClientService {
         return repository.findById(id).orElseThrow(()->new EntityNotFoundException("Cliente não encontrado"));
     }
 
-    @Transactional
-    public List<Client> findAll() {
-          return repository.findAll();
+    public Page<Client> findAll(Pageable pageable) {
+          return repository.findAll(pageable);
 
     }
 
