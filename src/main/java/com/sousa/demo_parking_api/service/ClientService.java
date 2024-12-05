@@ -5,6 +5,7 @@ import com.sousa.demo_parking_api.customException.CpfUniqueViolationException;
 import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.entity.Client;
 import com.sousa.demo_parking_api.repository.ClientRepository;
+import com.sousa.demo_parking_api.repository.projection.ClientProjection;
 import jakarta.transaction.Transactional;
 import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ClientService {
             return repository.save(client);
 
         } catch (DataIntegrityViolationException e) {
-            throw new CpfUniqueViolationException(String.format("O CPF informado já existe"));
+            throw new CpfUniqueViolationException(String.format("Já existe um cadastro para o usuario ou CPF informado!"));
         }
     }
 
@@ -53,5 +54,9 @@ public class ClientService {
         client.setName(name);
         client.setCpf(cpf);
         repository.save(client);
+    }
+
+    public Page<ClientProjection> findAllPageable(Pageable pageable) {
+        return repository.findAllPageable(pageable);
     }
 }
