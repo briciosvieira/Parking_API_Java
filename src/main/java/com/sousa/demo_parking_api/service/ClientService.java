@@ -5,16 +5,13 @@ import com.sousa.demo_parking_api.customException.CpfUniqueViolationException;
 import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.entity.Client;
 import com.sousa.demo_parking_api.repository.ClientRepository;
-import com.sousa.demo_parking_api.repository.projection.ClientProjection;
+import com.sousa.demo_parking_api.repository.projection.ClientProjectionDto;
 import jakarta.transaction.Transactional;
-import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -50,13 +47,13 @@ public class ClientService {
         if (!id.equals(client.getId())){
             throw new EntityNotFoundException("Cliente não encontrado.");
         }
-
         client.setName(name);
         client.setCpf(cpf);
         repository.save(client);
     }
 
-    public Page<ClientProjection> findAllPageable(Pageable pageable) {
+    @Transactional
+    public Page<ClientProjectionDto> findAllPageable(Pageable pageable) {
         return repository.findAllPageable(pageable);
     }
 }

@@ -3,12 +3,12 @@ package com.sousa.demo_parking_api.controller;
 import com.sousa.demo_parking_api.customException.CpfUniqueViolationException;
 import com.sousa.demo_parking_api.entity.Client;
 import com.sousa.demo_parking_api.jwt.JwtUserDetails;
-import com.sousa.demo_parking_api.repository.projection.ClientProjection;
+import com.sousa.demo_parking_api.repository.projection.ClientProjectionDto;
 import com.sousa.demo_parking_api.service.ClientService;
 import com.sousa.demo_parking_api.service.UserService;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientCreateDto;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClienteUpdateDto;
-import com.sousa.demo_parking_api.web.Dto.pageableDto.PageableDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.PageableResponseDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ClientResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
 import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,16 +46,15 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<PageableDto> findAll(Pageable pageable){
-        Page<ClientProjection> clientPage =  clientservice.findAllPageable(pageable);
-        return ResponseEntity.ok(PegeableMapper.toDto(clientPage));
+    public ResponseEntity<PageableResponseDto> findAll(@PageableDefault(size = 5, sort ="id") Pageable pageable){
+        Page<ClientProjectionDto> client =  clientservice.findAllPageable(pageable);
+        return ResponseEntity.ok(PegeableMapper.toDto(client));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<ClientResponseDto> update (@RequestBody @Valid ClienteUpdateDto dto, @PathVariable Long id){
         clientservice.update(id, dto.getName(), dto.getCpf());
         return ResponseEntity.ok().build();
-
 
     }
 }

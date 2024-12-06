@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.web.Dto.pageableDto;
+package com.sousa.demo_parking_api.web.Dto.responseDto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-public class PageableDto {
+public class PageableResponseDto {
 
 private List content = new ArrayList<>();
 private boolean fist;
