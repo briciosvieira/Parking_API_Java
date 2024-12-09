@@ -1,6 +1,5 @@
 package com.sousa.demo_parking_api.service;
 
-
 import com.sousa.demo_parking_api.customException.CpfUniqueViolationException;
 import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.entity.Client;
@@ -21,8 +20,8 @@ public class ClientService {
     private ClientRepository repository;
 
     @Transactional
-    public Client create (Client client) throws CpfUniqueViolationException {
-        try{
+    public Client create(Client client) throws CpfUniqueViolationException {
+        try {
             return repository.save(client);
 
         } catch (DataIntegrityViolationException e) {
@@ -32,19 +31,19 @@ public class ClientService {
 
     @Transactional
     public Client findById(Long id) {
-        return repository.findById(id).orElseThrow(()->new EntityNotFoundException("Cliente não encontrado"));
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
     }
 
     public Page<Client> findAll(Pageable pageable) {
-          return repository.findAll(pageable);
+        return repository.findAll(pageable);
 
     }
 
     @Transactional
-    public void update(Long id,  String name, String cpf) {
+    public void update(Long id, String name, String cpf) {
         Client client = findById(id);
 
-        if (!id.equals(client.getId())){
+        if (!id.equals(client.getId())) {
             throw new EntityNotFoundException("Cliente não encontrado.");
         }
         client.setName(name);
@@ -55,5 +54,21 @@ public class ClientService {
     @Transactional
     public Page<ClientProjectionDto> findAllPageable(Pageable pageable) {
         return repository.findAllPageable(pageable);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        try {
+            Client client = findById(id);
+            repository.delete(client);
+
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Cliente não encontrado.");
+        }
+    }
+
+    @Transactional
+    public Client findDetailUserById (Long id) {
+        return repository.findDetailUserById(id);
     }
 }

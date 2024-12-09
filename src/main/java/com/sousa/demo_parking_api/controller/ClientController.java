@@ -14,25 +14,28 @@ import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
 import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/clientes")
+@Slf4j
 public class ClientController {
 
     private final ClientService clientservice;
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<ClientResponseDto> create (@RequestBody @Valid ClientCreateDto dto,
-                                                     @AuthenticationPrincipal JwtUserDetails details) throws CpfUniqueViolationException {
+    public ResponseEntity<ClientResponseDto> create(@RequestBody @Valid ClientCreateDto dto,
+                                                    @AuthenticationPrincipal JwtUserDetails details) throws CpfUniqueViolationException {
         Client client = ClientModelMapper.toClient(dto);
         client.setUser(userService.findById(details.id()));
         clientservice.create(client);
@@ -40,21 +43,35 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientResponseDto> findById(@PathVariable Long id){
+    public ResponseEntity<ClientResponseDto> findById(@PathVariable Long id) {
         Client client = clientservice.findById(id);
         return ResponseEntity.ok().body(ClientModelMapper.toDto(client));
     }
 
     @GetMapping
-    public ResponseEntity<PageableResponseDto> findAll(@PageableDefault(size = 5, sort ="id") Pageable pageable){
-        Page<ClientProjectionDto> client =  clientservice.findAllPageable(pageable);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<PageableResponseDto> findAll(@PageableDefault(size = 5, sort = "id") Pageable pageable) {
+        Page<ClientProjectionDto> client = clientservice.findAllPageable(pageable);
         return ResponseEntity.ok(PegeableMapper.toDto(client));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClientResponseDto> update (@RequestBody @Valid ClienteUpdateDto dto, @PathVariable Long id){
+    public ResponseEntity<ClientResponseDto> update(@RequestBody @Valid ClienteUpdateDto dto, @PathVariable Long id) {
         clientservice.update(id, dto.getName(), dto.getCpf());
         return ResponseEntity.ok().build();
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        clientservice.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/detalhes")
+    public ResponseEntity<ClientResponseDto> getDetailsClient(@AuthenticationPrincipal JwtUserDetails details){
+        log.info("Authenticated user ID: {}", details.id());
+        Client clientId = clientservice.findDetailUserById (details.id());
+        return ResponseEntity.ok(ClientModelMapper.toDto(clientId));
     }
 }
