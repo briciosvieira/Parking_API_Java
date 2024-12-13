@@ -10,7 +10,7 @@ public class JwtUserDetails extends User {
 
     public JwtUserDetails(com.sousa.demo_parking_api.entity.User user) {
         super(user.getUsername(), user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().name()));
-        this.users =user;
+        this.users = user;
     }
 
     public Long id(){

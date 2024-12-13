@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.customException;
+package com.sousa.demo_parking_api.jwt;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,10 +13,11 @@ import java.io.IOException;
 @Slf4j
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        log.error("Exception da do metodo ( commence ) que se encontra na classe CustomAuthenticationEntryPoint", authException.getMessage());
+        log.error("Exception do metodo ( commence ) que se encontra na classe CustomAuthenticationEntryPoint", authException.getMessage());
     }
 }

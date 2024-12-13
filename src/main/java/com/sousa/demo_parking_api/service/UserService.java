@@ -7,6 +7,7 @@ import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.customException.PasswordInvalidException;
 import com.sousa.demo_parking_api.customException.UsernameUniqueViolationException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,17 +16,12 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
-    private  UserRepository repository;
-    private PasswordEncoder passwordEncoder;
-
-    public UserService(PasswordEncoder passwordEncoder, UserRepository repository) {
-        this.passwordEncoder = passwordEncoder;
-        this.repository = repository;
-    }
+    private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
 
     //save

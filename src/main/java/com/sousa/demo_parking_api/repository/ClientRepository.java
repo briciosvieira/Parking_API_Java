@@ -14,6 +14,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query("SELECT c from Client c")
     Page<ClientProjectionDto> findAllPageable(Pageable pageable);
 
-    @Query("SELECT c FROM Client c JOIN c.user u WHERE u.id = :id")
+    @Query("SELECT client FROM Client client JOIN client.user user WHERE user.id = :id")
     Client findDetailUserById (@Param("id") Long id);
 }

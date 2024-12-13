@@ -26,7 +26,7 @@ public class AuthenticationController {
 
     @PostMapping("/auth")
     public ResponseEntity<Object> authenticate(@RequestBody @Valid UserLoginDto dto, HttpServletRequest request){
-        log.info("Informação", dto.getUsername());
+
         try {
             var authenticationToken = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
             authenticationManager.authenticate(authenticationToken);
@@ -35,7 +35,7 @@ public class AuthenticationController {
             return  ResponseEntity.ok(token);
 
         } catch (AuthenticationException e) {
-            log.warn("Error, Bad Credentials");
+
         }
         return ResponseEntity.badRequest().body(new ErrorMessageException(request, HttpStatus.BAD_REQUEST, "Credenciais inválidas"));
     }

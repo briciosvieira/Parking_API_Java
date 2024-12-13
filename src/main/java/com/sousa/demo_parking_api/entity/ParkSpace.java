@@ -1,8 +1,12 @@
 package com.sousa.demo_parking_api.entity;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sousa.demo_parking_api.enums.Role;
+import com.sousa.demo_parking_api.enums.StatusSpace;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,31 +21,25 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter@Setter
-@Table(name = "users")
+@Table(name = "ParkSpace")
 @EntityListeners(AuditingEntityListener.class)
-public class User implements Serializable {
+public class ParkSpace implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "username", nullable = false,unique = true , length = 50)
-    private String username;
-
-    @Column(name = "password", nullable = false, length = 200)
-    private String password;
-
+    @Column(nullable = false, length = 4)
+    private String code;
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private Role role = Role.ROLE_CLIENTE;
+    private StatusSpace statusSpace = StatusSpace.LIVRE;
 
-    @Column(name = "date_creation")
+    @Column(name = "date_create")
     @CreatedDate
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dateCreate;
 
-
+    @LastModifiedDate
     @Column(name = "date_update")
     private LocalDateTime dateUpdate;
 
@@ -57,21 +55,12 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        ParkSpace parkSpace = (ParkSpace) o;
+        return Objects.equals(id, parkSpace.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                '}';
-    }
-
-
 }

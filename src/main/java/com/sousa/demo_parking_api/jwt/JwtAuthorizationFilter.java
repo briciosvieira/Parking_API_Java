@@ -35,7 +35,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
             if (!JwtTokenUtils.isTokenValid(token)){
                 log.warn("Jwt token invalido ou expirado");
-
                 filterChain.doFilter(request, response);
                 return;
             }

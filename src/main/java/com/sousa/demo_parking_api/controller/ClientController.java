@@ -70,8 +70,7 @@ public class ClientController {
 
     @GetMapping("/detalhes")
     public ResponseEntity<ClientResponseDto> getDetailsClient(@AuthenticationPrincipal JwtUserDetails details){
-        log.info("Authenticated user ID: {}", details.id());
-        Client clientId = clientservice.findDetailUserById (details.id());
-        return ResponseEntity.ok(ClientModelMapper.toDto(clientId));
+        Client client = clientservice.findDetailUserById(details.id());
+        return ResponseEntity.ok(ClientModelMapper.toDto(client));
     }
 }
