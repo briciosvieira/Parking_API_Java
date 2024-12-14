@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ClienteUpdateDto {
+public class ClientUpdateDto {
 
     @Size(min = 3, max = 100)
     private String name;

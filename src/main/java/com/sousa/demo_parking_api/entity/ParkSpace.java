@@ -28,14 +28,16 @@ public class ParkSpace implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 4)
     private String code;
+
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private StatusSpace statusSpace = StatusSpace.LIVRE;
 
-    @Column(name = "date_create")
     @CreatedDate
+    @Column(name = "date_create")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dateCreate;
 

@@ -7,7 +7,7 @@ import com.sousa.demo_parking_api.repository.projection.ClientProjectionDto;
 import com.sousa.demo_parking_api.service.ClientService;
 import com.sousa.demo_parking_api.service.UserService;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientCreateDto;
-import com.sousa.demo_parking_api.web.Dto.clienteDto.ClienteUpdateDto;
+import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientUpdateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.PageableResponseDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ClientResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
@@ -56,7 +56,7 @@ public class ClientController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClientResponseDto> update(@RequestBody @Valid ClienteUpdateDto dto, @PathVariable Long id) {
+    public ResponseEntity<ClientResponseDto> update(@RequestBody @Valid ClientUpdateDto dto, @PathVariable Long id) {
         clientservice.update(id, dto.getName(), dto.getCpf());
         return ResponseEntity.ok().build();
 
