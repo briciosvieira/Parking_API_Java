@@ -19,5 +19,5 @@ public class ParkSpaceCreateDto {
 
     @NotBlank
     @Pattern(regexp = "LIVRE|OCUPADO")
-    private StatusSpace space;
+    private String statusSpace;
 }

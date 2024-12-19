@@ -29,7 +29,7 @@ public class ParkSpace implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 4)
+    @Column(nullable = false, length = 4, unique = true)
     private String code;
 
     @Column(name = "status")

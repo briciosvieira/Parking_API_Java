@@ -1,9 +1,6 @@
 package com.sousa.demo_parking_api.web.exception;
 
-import com.sousa.demo_parking_api.customException.CpfUniqueViolationException;
-import com.sousa.demo_parking_api.customException.EntityNotFoundException;
-import com.sousa.demo_parking_api.customException.PasswordInvalidException;
-import com.sousa.demo_parking_api.customException.UsernameUniqueViolationException;
+import com.sousa.demo_parking_api.customException.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -73,8 +70,8 @@ public class ApiExceptionHandler {
     }
 
     // username unique
-    @ExceptionHandler(UsernameUniqueViolationException.class)
-    public ResponseEntity<ErrorMessageException> usernameUniqueViolationException(UsernameUniqueViolationException ex,
+    @ExceptionHandler({UsernameUniqueViolationException.class , CodeUniqueViolationException.class})
+    public ResponseEntity<ErrorMessageException> usernameUniqueViolationException(RuntimeException ex,
                                                                                   HttpServletRequest request){
         log.error("Api error 500", ex);
         return ResponseEntity.status(HttpStatus.CONFLICT)
