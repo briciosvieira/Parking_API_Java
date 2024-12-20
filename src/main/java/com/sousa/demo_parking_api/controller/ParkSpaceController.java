@@ -1,13 +1,18 @@
 package com.sousa.demo_parking_api.controller;
 
 import com.sousa.demo_parking_api.entity.ParkSpace;
+import com.sousa.demo_parking_api.repository.projection.ParkSpaceProkectionDto;
 import com.sousa.demo_parking_api.service.ParkSpaceService;
 import com.sousa.demo_parking_api.web.Dto.parkingSpaceDto.ParkSpaceCreateDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.PageableResponseDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ParkSpaceRespondeDto;
 import com.sousa.demo_parking_api.web.mapper.ParkSpaceModelMapper;
+import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,4 +46,13 @@ public class ParkSpaceController {
         ParkSpace parkSpace = service.findByCode(code);
         return ResponseEntity.ok(ParkSpaceModelMapper.toRespondeDto(parkSpace));
     }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<PageableResponseDto> findAll(Pageable pageable){
+        Page<ParkSpaceProkectionDto> parkSpace = service.findAllPageableCode(pageable);
+
+        return ResponseEntity.ok(PegeableMapper.toDto(parkSpace));
+    }
+
 }
