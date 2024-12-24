@@ -1,12 +1,12 @@
 package com.sousa.demo_parking_api.controller;
 
-import com.sousa.demo_parking_api.entity.ParkSpace;
-import com.sousa.demo_parking_api.repository.projection.ParkSpaceProkectionDto;
-import com.sousa.demo_parking_api.service.ParkSpaceService;
-import com.sousa.demo_parking_api.web.Dto.parkingSpaceDto.ParkSpaceCreateDto;
-import com.sousa.demo_parking_api.web.Dto.responseDto.PageableResponseDto;
-import com.sousa.demo_parking_api.web.Dto.responseDto.ParkSpaceRespondeDto;
-import com.sousa.demo_parking_api.web.mapper.ParkSpaceModelMapper;
+import com.sousa.demo_parking_api.entity.Vacancy;
+import com.sousa.demo_parking_api.repository.projection.VacancyProtectionDto;
+import com.sousa.demo_parking_api.service.VacancyService;
+import com.sousa.demo_parking_api.web.Dto.VacancyDto.VacancyCreateDto;
+import com.sousa.demo_parking_api.web.Dto.PageableResponseDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.VacancyRespondeDto;
+import com.sousa.demo_parking_api.web.mapper.VacancyModelMapper;
 import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,32 +25,32 @@ import java.net.URI;
 @RestController
 @RequestMapping("api/v1/vagas")
 @Slf4j
-public class ParkSpaceController {
+public class VacancyController {
 
-    private final ParkSpaceService service;
+    private final VacancyService service;
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Void> create(@RequestBody @Valid ParkSpaceCreateDto dto){
-        ParkSpace parkSpace = service.save(ParkSpaceModelMapper.toParkSpace(dto));
+    public ResponseEntity<Void> create(@RequestBody @Valid VacancyCreateDto dto){
+        Vacancy vacancy = service.save(VacancyModelMapper.toParkSpace(dto));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri().path("/{code}")
-                .buildAndExpand(parkSpace.getCode()).toUri();
+                .buildAndExpand(vacancy.getCode()).toUri();
 
         return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{code}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ParkSpaceRespondeDto> getCode(@PathVariable String code){
-        ParkSpace parkSpace = service.findByCode(code);
-        return ResponseEntity.ok(ParkSpaceModelMapper.toRespondeDto(parkSpace));
+    public ResponseEntity<VacancyRespondeDto> getCode(@PathVariable String code){
+        Vacancy vacancy = service.findByCode(code);
+        return ResponseEntity.ok(VacancyModelMapper.toRespondeDto(vacancy));
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PageableResponseDto> findAll(Pageable pageable){
-        Page<ParkSpaceProkectionDto> parkSpace = service.findAllPageableCode(pageable);
+        Page<VacancyProtectionDto> parkSpace = service.findAllPageableCode(pageable);
 
         return ResponseEntity.ok(PegeableMapper.toDto(parkSpace));
     }

@@ -8,7 +8,7 @@ import com.sousa.demo_parking_api.service.ClientService;
 import com.sousa.demo_parking_api.service.UserService;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientCreateDto;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientUpdateDto;
-import com.sousa.demo_parking_api.web.Dto.responseDto.PageableResponseDto;
+import com.sousa.demo_parking_api.web.Dto.PageableResponseDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ClientResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
 import com.sousa.demo_parking_api.web.mapper.PegeableMapper;

@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.web.Dto.responseDto;
+package com.sousa.demo_parking_api.web.Dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

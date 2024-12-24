@@ -1,6 +1,6 @@
 package com.sousa.demo_parking_api.repository.projection;
 
-public interface ParkSpaceProkectionDto {
+public interface VacancyProtectionDto {
 
     Long getId();
     String getCode();

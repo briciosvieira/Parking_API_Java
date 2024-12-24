@@ -1,6 +1,5 @@
-package com.sousa.demo_parking_api.web.Dto.parkingSpaceDto;
+package com.sousa.demo_parking_api.web.Dto.VacancyDto;
 
-import com.sousa.demo_parking_api.enums.StatusSpace;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParkSpaceCreateDto {
+public class VacancyCreateDto {
 
     @Size(min = 4, max = 4)
     private String code;

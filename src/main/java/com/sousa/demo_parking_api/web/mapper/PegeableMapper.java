@@ -1,6 +1,6 @@
 package com.sousa.demo_parking_api.web.mapper;
 
-import com.sousa.demo_parking_api.web.Dto.responseDto.PageableResponseDto;
+import com.sousa.demo_parking_api.web.Dto.PageableResponseDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

@@ -21,9 +21,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter@Setter
-@Table(name = "park_space")
+@Table
 @EntityListeners(AuditingEntityListener.class)
-public class ParkSpace implements Serializable {
+public class Vacancy implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,8 +57,8 @@ public class ParkSpace implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ParkSpace parkSpace = (ParkSpace) o;
-        return Objects.equals(id, parkSpace.id);
+        Vacancy vacancy = (Vacancy) o;
+        return Objects.equals(id, vacancy.id);
     }
 
     @Override

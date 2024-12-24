@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -37,9 +38,10 @@ public class Client implements Serializable {
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
+    @CreatedDate
     @Column(name = "date_create")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dateCreate = LocalDateTime.now();
+    private LocalDateTime dateCreate;
 
     @LastModifiedDate
     @Column(name = "date_update")

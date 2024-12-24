@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sousa</groupId>
-	<artifactId>demo-parking-api</artifactId>
+	<artifactId>demo-vacancy-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo-parking-api</name>
+	<name>demo-vacancy-api</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
