@@ -22,7 +22,7 @@ public class ParkingLotResponseDto {
     private BigDecimal value;
     private BigDecimal discount;
     private String receipt; //recibo
-    private String code;
+    private String pargingCode;
     private LocalDateTime inputDate;
     private LocalDateTime exitDate;
 
