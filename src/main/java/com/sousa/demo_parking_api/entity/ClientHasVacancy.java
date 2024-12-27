@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-@Table(name = "client_parking")
+@Table
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class ClientHasVacancy {
@@ -56,7 +56,7 @@ public class ClientHasVacancy {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime inputDate;
 
-    @Column(name = "input_date")
+    @Column(name = "exit_date")
     private LocalDateTime exitDate;
 
     @Column(name = "date_creation")

@@ -35,7 +35,7 @@ public class VacancyController {
         Vacancy vacancy = service.save(VacancyModelMapper.toParkSpace(dto));
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri().path("/{code}")
-                .buildAndExpand(vacancy.getCode()).toUri();
+                .buildAndExpand(vacancy.getParkingCode()).toUri();
 
         return ResponseEntity.created(location).build();
     }

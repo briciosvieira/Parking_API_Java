@@ -12,10 +12,10 @@ import java.util.Optional;
 
 public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
 
+    @Query("SELECT v FROM Vacancy v")
+    Optional<Vacancy> findByCode(String parkingCode);
 
-    Optional<Vacancy> findByCode(String code);
-
-    @Query("SELECT p FROM ParkSpace p")
+    @Query("SELECT v FROM Vacancy v")
     Page<VacancyProtectionDto> findAllPageable(Pageable pageable);
 
     Optional<Vacancy> findFirstByStatus(Status statusSpace);

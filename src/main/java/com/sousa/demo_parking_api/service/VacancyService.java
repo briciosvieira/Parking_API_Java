@@ -35,8 +35,8 @@ public class VacancyService {
     }
 
     @Transactional
-    public Vacancy findByCode(String code){
-        return repository.findByCode(code).orElseThrow(()-> new EntityNotFoundException(String.format("Vaga '%s' não encontrada!",code)));
+    public Vacancy findByCode(String parkingCode){
+        return repository.findByCode(parkingCode).orElseThrow(()-> new EntityNotFoundException(String.format("Vaga '%s' não encontrada!",parkingCode)));
     }
 
     public Page<VacancyProtectionDto> findAllPageableCode(Pageable pageable) {

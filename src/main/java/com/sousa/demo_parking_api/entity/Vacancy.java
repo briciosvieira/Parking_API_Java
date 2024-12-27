@@ -30,7 +30,7 @@ public class Vacancy implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 4, unique = true)
-    private String pargingCode;
+    private String parkingCode;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
