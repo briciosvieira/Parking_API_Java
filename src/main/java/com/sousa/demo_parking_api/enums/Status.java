@@ -1,6 +1,6 @@
 package com.sousa.demo_parking_api.enums;
 
 
-public enum StatusSpace {
+public enum Status {
     LIVRE, OCUPADO
 }

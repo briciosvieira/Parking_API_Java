@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import static com.sousa.demo_parking_api.enums.Status.LIVRE;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -39,5 +41,9 @@ public class VacancyService {
 
     public Page<VacancyProtectionDto> findAllPageableCode(Pageable pageable) {
         return repository.findAllPageable(pageable);
+    }
+
+    public Vacancy findByVacancyFree() {
+        return repository.findFirstByStatus(LIVRE).orElseThrow(()-> new EntityNotFoundException(String.format("Nenhuma vaga livre foi encontrada")));
     }
 }

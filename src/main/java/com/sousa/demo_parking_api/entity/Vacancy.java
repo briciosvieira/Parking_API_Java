@@ -1,7 +1,7 @@
 package com.sousa.demo_parking_api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sousa.demo_parking_api.enums.StatusSpace;
+import com.sousa.demo_parking_api.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class Vacancy implements Serializable {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private StatusSpace statusSpace = StatusSpace.LIVRE;
+    private Status status = Status.LIVRE;
 
     @CreatedDate
     @Column(name = "date_create")

@@ -19,7 +19,7 @@ import java.util.Objects;
 @Table(name = "client_parking")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class ClientParkingLot {
+public class ClientHasVacancy {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -79,7 +79,7 @@ public class ClientParkingLot {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClientParkingLot that = (ClientParkingLot) o;
+        ClientHasVacancy that = (ClientHasVacancy) o;
         return Objects.equals(id, that.id);
     }
 
