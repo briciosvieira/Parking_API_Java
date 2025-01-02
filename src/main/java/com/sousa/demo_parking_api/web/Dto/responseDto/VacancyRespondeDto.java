@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class VacancyRespondeDto {
 
     private Long id;
-    private String code;
+    private String parkingCode;
     private Status status;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dateCreate;

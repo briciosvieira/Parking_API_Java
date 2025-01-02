@@ -39,10 +39,12 @@ public class VacancyService {
         return repository.findByCode(parkingCode).orElseThrow(()-> new EntityNotFoundException(String.format("Vaga '%s' não encontrada!",parkingCode)));
     }
 
+    @Transactional
     public Page<VacancyProtectionDto> findAllPageableCode(Pageable pageable) {
         return repository.findAllPageable(pageable);
     }
 
+    @Transactional
     public Vacancy findByVacancyFree() {
         return repository.findFirstByStatus(LIVRE).orElseThrow(()-> new EntityNotFoundException(String.format("Nenhuma vaga livre foi encontrada")));
     }

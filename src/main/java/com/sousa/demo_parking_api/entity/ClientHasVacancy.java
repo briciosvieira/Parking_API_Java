@@ -32,6 +32,9 @@ public class ClientHasVacancy {
     private String mark;
 
     @Column(nullable = false, length = 45)
+    private String model;
+
+    @Column(nullable = false, length = 45)
     private String color;
 
     @Column(columnDefinition = "decimal(7,2)")
@@ -48,7 +51,7 @@ public class ClientHasVacancy {
     private Client client;
 
     @ManyToOne
-    @JoinColumn(name = "id_vacancy", nullable = false)
+    @JoinColumn(name = "id_vacancy",nullable = false)
     private Vacancy vacancy;
 
     @Column(name = "input_date")
@@ -61,7 +64,6 @@ public class ClientHasVacancy {
 
     @Column(name = "date_creation")
     @CreatedDate
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dateCreate;
 
     @Column(name = "date_update")

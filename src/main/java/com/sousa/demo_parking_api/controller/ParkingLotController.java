@@ -2,7 +2,7 @@ package com.sousa.demo_parking_api.controller;
 
 import com.sousa.demo_parking_api.entity.ClientHasVacancy;
 import com.sousa.demo_parking_api.service.ParkingLotService;
-import com.sousa.demo_parking_api.web.Dto.clientParkingLotDto.ParkingLotCreateDto;
+import com.sousa.demo_parking_api.web.Dto.parkingLotDto.ParkingLotCreateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ParkingLotResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientHasVacancyModelMapper;
 import jakarta.validation.Valid;
@@ -31,7 +31,7 @@ public class ParkingLotController {
         lotService.checkIn(clientHasVacancy);
         ParkingLotResponseDto responseDto = ClientHasVacancyModelMapper.toDto(clientHasVacancy);
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequestUri().path("receipt")
+                .fromCurrentRequestUri().path("/{receipt}")
                 .buildAndExpand(clientHasVacancy.getReceipt()).toUri();
         return ResponseEntity.created(location).body(responseDto);
     }

@@ -14,7 +14,7 @@ import lombok.Setter;
 public class VacancyCreateDto {
 
     @Size(min = 4, max = 4)
-    private String code;
+    private String parkingCode;
 
     @NotBlank
     @Pattern(regexp = "LIVRE|OCUPADO")

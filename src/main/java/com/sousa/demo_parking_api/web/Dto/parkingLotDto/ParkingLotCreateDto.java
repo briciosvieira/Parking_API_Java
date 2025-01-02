@@ -1,4 +1,4 @@
-package com.sousa.demo_parking_api.web.Dto.clientParkingLotDto;
+package com.sousa.demo_parking_api.web.Dto.parkingLotDto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

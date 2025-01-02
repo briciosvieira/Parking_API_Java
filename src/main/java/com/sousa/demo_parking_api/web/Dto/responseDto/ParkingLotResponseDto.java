@@ -1,5 +1,7 @@
 package com.sousa.demo_parking_api.web.Dto.responseDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +21,16 @@ public class ParkingLotResponseDto {
     private String mark;
     private String model;
     private String clientCpf;
+    private String receipt;
+    private String ParkingCode ;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigDecimal value;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigDecimal discount;
-    private String receipt; //recibo
-    private String pargingCode;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime inputDate;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime exitDate;
 
 }

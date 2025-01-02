@@ -5,6 +5,7 @@ import com.sousa.demo_parking_api.entity.ClientHasVacancy;
 import com.sousa.demo_parking_api.entity.Vacancy;
 import com.sousa.demo_parking_api.enums.Status;
 import com.sousa.demo_parking_api.utils.ParkingUtils;
+import com.sousa.demo_parking_api.web.Dto.responseDto.ParkingLotResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,6 @@ public class ParkingLotService {
         clientHasVacancy.setVacancy(vacancy);
 
         clientHasVacancy.setInputDate(LocalDateTime.now());
-
         clientHasVacancy.setReceipt(ParkingUtils.generetReceipt());
 
         return clientHasVacancyService.create(clientHasVacancy);

@@ -18,5 +18,5 @@ public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
     @Query("SELECT v FROM Vacancy v")
     Page<VacancyProtectionDto> findAllPageable(Pageable pageable);
 
-    Optional<Vacancy> findFirstByStatus(Status statusSpace);
+    Optional<Vacancy> findFirstByStatus(Status status);
 }
