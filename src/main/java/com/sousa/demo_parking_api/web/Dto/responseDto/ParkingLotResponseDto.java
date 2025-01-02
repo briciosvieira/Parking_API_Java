@@ -22,7 +22,7 @@ public class ParkingLotResponseDto {
     private String model;
     private String clientCpf;
     private String receipt;
-    private String ParkingCode ;
+    private String parkingCode = getParkingCode();
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigDecimal value;
     @JsonInclude(JsonInclude.Include.NON_NULL)

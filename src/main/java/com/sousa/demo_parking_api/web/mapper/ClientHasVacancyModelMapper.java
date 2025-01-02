@@ -14,6 +14,15 @@ public class ClientHasVacancyModelMapper {
     }
 
     public static ParkingLotResponseDto toDto(ClientHasVacancy lot){
-        return new ModelMapper().map(lot, ParkingLotResponseDto.class);
+        ModelMapper modelMapper = new ModelMapper();
+
+
+        modelMapper.typeMap(ClientHasVacancy.class, ParkingLotResponseDto.class)
+                .addMappings(mapper -> mapper.map(
+                        src -> src.getVacancy().getParkingCode(),
+                        ParkingLotResponseDto::setParkingCode
+                ));
+
+        return modelMapper.map(lot, ParkingLotResponseDto.class);
     }
 }
