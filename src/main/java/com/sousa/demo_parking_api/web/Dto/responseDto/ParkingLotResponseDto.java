@@ -22,15 +22,15 @@ public class ParkingLotResponseDto {
     private String model;
     private String clientCpf;
     private String receipt;
-    private String parkingCode = getParkingCode();
+    private String parkingCode;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigDecimal value;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigDecimal discount;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime inputDate;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime exitDate;
 
 }

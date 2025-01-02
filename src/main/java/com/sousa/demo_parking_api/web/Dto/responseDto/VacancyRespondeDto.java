@@ -18,10 +18,10 @@ public class VacancyRespondeDto {
     private Long id;
     private String parkingCode;
     private Status status;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime dateCreate;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime dateUpdate;
 
 }

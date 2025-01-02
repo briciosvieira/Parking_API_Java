@@ -16,7 +16,6 @@ public class ClientHasVacancyModelMapper {
     public static ParkingLotResponseDto toDto(ClientHasVacancy lot){
         ModelMapper modelMapper = new ModelMapper();
 
-
         modelMapper.typeMap(ClientHasVacancy.class, ParkingLotResponseDto.class)
                 .addMappings(mapper -> mapper.map(
                         src -> src.getVacancy().getParkingCode(),
