@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParkingLotResponseDto {
+public class ParkingSpotResponseDto {
 
     private String plate;
     private String color;

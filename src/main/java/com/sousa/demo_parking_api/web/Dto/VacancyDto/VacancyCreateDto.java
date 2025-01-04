@@ -18,5 +18,5 @@ public class VacancyCreateDto {
 
     @NotBlank
     @Pattern(regexp = "LIVRE|OCUPADO")
-    private String statusSpace;
+    private String status;
 }

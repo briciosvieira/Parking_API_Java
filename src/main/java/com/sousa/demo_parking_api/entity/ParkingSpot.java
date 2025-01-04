@@ -1,6 +1,5 @@
 package com.sousa.demo_parking_api.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +18,7 @@ import java.util.Objects;
 @Table
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class ClientHasVacancy {
+public class ParkingSpot {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -56,7 +55,6 @@ public class ClientHasVacancy {
 
     @Column(name = "input_date")
     @CreatedDate
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime inputDate;
 
     @Column(name = "exit_date")
@@ -81,7 +79,7 @@ public class ClientHasVacancy {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClientHasVacancy that = (ClientHasVacancy) o;
+        ParkingSpot that = (ParkingSpot) o;
         return Objects.equals(id, that.id);
     }
 

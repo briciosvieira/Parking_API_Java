@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class ParkingLotCreateDto {
+public class ParkingSpotCreateDto {
 
     @NotBlank
     @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "A paca do veículo deve seguir um padrão 'XXX-0000'.")
