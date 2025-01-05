@@ -22,7 +22,7 @@ public class ParkingUtils {
                 .replace(":","").replace("T","-");
     }
 
-    public static BigDecimal calcularCusto(LocalDateTime entrada, LocalDateTime saida) {
+    public static BigDecimal calculateCost(LocalDateTime entrada, LocalDateTime saida) {
         long minutes = entrada.until(saida, ChronoUnit.MINUTES);
         double total = 0.0;
 
