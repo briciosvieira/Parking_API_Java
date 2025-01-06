@@ -23,7 +23,7 @@ public class ParkingSpotController {
 
     @PostMapping("/check-in")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ParkingSpotResponseDto> chekin(@RequestBody @Valid ParkingSpotCreateDto dto){
+    public ResponseEntity<ParkingSpotResponseDto> checkin(@RequestBody @Valid ParkingSpotCreateDto dto){
 
         ParkingSpot parkingSpot = ParkingSpotModelMapper.toParkingLot(dto);
         clientParkingSpotService.checkIn(parkingSpot);
@@ -38,10 +38,20 @@ public class ParkingSpotController {
     }
 
     @GetMapping("/{receipt}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public ResponseEntity<ParkingSpotResponseDto> findByReceipt(@PathVariable String receipt){
         ParkingSpot parkingSpot = clientParkingSpotService.findByReceipt(receipt);
+        ParkingSpotResponseDto dto  = ParkingSpotModelMapper.toDto(parkingSpot);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/{check-out}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ParkingSpotResponseDto> checkOut(@PathVariable String receipt){
+        ParkingSpot parkingSpot = clientParkingSpotService.chekOut(receipt);
         return ResponseEntity.ok(ParkingSpotModelMapper.toDto(parkingSpot));
     }
+
+
 
 }

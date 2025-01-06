@@ -14,7 +14,7 @@ public class ParkingSpotService {
      private final ParkingSpotRepository repository;
 
      @Transactional
-     public ParkingSpot create (ParkingSpot parkingSpot){
+     public ParkingSpot save(ParkingSpot parkingSpot){
          try {
              return repository.save(parkingSpot);
 
@@ -26,5 +26,10 @@ public class ParkingSpotService {
     @Transactional
     public ParkingSpot findByReceipt(String receipt) {
          return repository.findByReceipt(receipt).orElseThrow(()-> new EntityNotFoundException(String.format("Recibo não encontrado")));
+    }
+
+    @Transactional
+    public long getTotalNumberOfTimesParking(String cpf) {
+         return repository.countByClientCpfAndExitDateIsNotNull(cpf);
     }
 }

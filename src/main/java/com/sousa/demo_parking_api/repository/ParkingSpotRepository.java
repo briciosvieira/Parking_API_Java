@@ -9,4 +9,6 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Long> 
 
 
     Optional<ParkingSpot> findByReceipt(String receipt);
+
+    long countByClientCpfAndExitDateIsNotNull(String cpf);
 }
