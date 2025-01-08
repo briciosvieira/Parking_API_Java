@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -62,5 +63,11 @@ public class ClientParkingSpotService {
         parkingSpot.getVacancy().setStatus(Status.LIVRE);
 
         return parkingSpotService.save(parkingSpot);
+    }
+
+
+    @Transactional
+    public List<ParkingSpot> findByClientCpf(String ClientCpf) {
+        return parkingSpotService.findByClientCpf(ClientCpf);
     }
 }

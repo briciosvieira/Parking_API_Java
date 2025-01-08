@@ -6,6 +6,9 @@ import com.sousa.demo_parking_api.web.Dto.responseDto.ParkingSpotResponseDto;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @NoArgsConstructor
 public class ParkingSpotModelMapper {
 
@@ -23,5 +26,9 @@ public class ParkingSpotModelMapper {
                 ));
 
         return modelMapper.map(lot, ParkingSpotResponseDto.class);
+    }
+
+    public static List<ParkingSpotResponseDto> listDto(List<ParkingSpot> parkingSpot){
+        return parkingSpot.stream().map(ParkingSpotModelMapper::toDto).collect(Collectors.toList());
     }
 }

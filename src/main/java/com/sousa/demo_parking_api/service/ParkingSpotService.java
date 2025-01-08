@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ParkingSpotService {
@@ -31,5 +33,9 @@ public class ParkingSpotService {
     @Transactional
     public long getTotalNumberOfTimesParking(String cpf) {
          return repository.countByClientCpfAndExitDateIsNotNull(cpf);
+    }
+
+    public List<ParkingSpot> findByClientCpf(String ClientCpf) {
+         return repository.findByClientCpf(ClientCpf).orElseThrow(()->new EntityNotFoundException(String.format("Cliente com o cpf : %s não encontrado", ClientCpf)));
     }
 }
