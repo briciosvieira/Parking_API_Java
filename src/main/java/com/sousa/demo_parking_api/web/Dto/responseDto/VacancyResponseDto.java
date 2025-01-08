@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacancyRespondeDto {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class VacancyResponseDto {
 
     private Long id;
     private String parkingCode;
     private Status status;
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime dateCreate;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private LocalDateTime dateUpdate;
 

@@ -1,6 +1,9 @@
 package com.sousa.demo_parking_api.repository;
 
 import com.sousa.demo_parking_api.entity.ParkingSpot;
+import com.sousa.demo_parking_api.repository.projection.ParkingSpotProjectionDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,5 +16,5 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Long> 
 
     long countByClientCpfAndExitDateIsNotNull(String cpf);
 
-    Optional<List<ParkingSpot>> findByClientCpf(String ClientCpf);
+    Page<ParkingSpotProjectionDto> findByClientCpf(String ClientCpf, Pageable pageable);
 }

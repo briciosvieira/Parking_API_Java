@@ -4,10 +4,13 @@ import com.sousa.demo_parking_api.entity.Client;
 import com.sousa.demo_parking_api.entity.ParkingSpot;
 import com.sousa.demo_parking_api.entity.Vacancy;
 import com.sousa.demo_parking_api.enums.Status;
+import com.sousa.demo_parking_api.repository.projection.ParkingSpotProjectionDto;
 import com.sousa.demo_parking_api.utils.ParkingUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -67,7 +70,7 @@ public class ClientParkingSpotService {
 
 
     @Transactional
-    public List<ParkingSpot> findByClientCpf(String ClientCpf) {
-        return parkingSpotService.findByClientCpf(ClientCpf);
+    public Page<ParkingSpotProjectionDto> findByAllClientCpf(String ClientCpf, Pageable pageable) {
+        return parkingSpotService.findByAllClientCpf(ClientCpf, pageable);
     }
 }

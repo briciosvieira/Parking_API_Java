@@ -4,8 +4,8 @@ import com.sousa.demo_parking_api.entity.Vacancy;
 import com.sousa.demo_parking_api.repository.projection.VacancyProtectionDto;
 import com.sousa.demo_parking_api.service.VacancyService;
 import com.sousa.demo_parking_api.web.Dto.VacancyDto.VacancyCreateDto;
-import com.sousa.demo_parking_api.web.Dto.PageableResponseDto;
-import com.sousa.demo_parking_api.web.Dto.responseDto.VacancyRespondeDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.PageableDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.VacancyResponseDto;
 import com.sousa.demo_parking_api.web.mapper.VacancyModelMapper;
 import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
 import jakarta.validation.Valid;
@@ -42,14 +42,14 @@ public class VacancyController {
 
     @GetMapping("/{code}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<VacancyRespondeDto> getCode(@PathVariable String code){
+    public ResponseEntity<VacancyResponseDto> getCode(@PathVariable String code){
         Vacancy vacancy = service.findByCode(code);
         return ResponseEntity.ok(VacancyModelMapper.toRespondeDto(vacancy));
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<PageableResponseDto> findAll(Pageable pageable){
+    public ResponseEntity<PageableDto> findAll(Pageable pageable){
         Page<VacancyProtectionDto> parkSpace = service.findAllPageableCode(pageable);
 
         return ResponseEntity.ok(PegeableMapper.toDto(parkSpace));

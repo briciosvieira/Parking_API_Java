@@ -8,7 +8,7 @@ import com.sousa.demo_parking_api.service.ClientService;
 import com.sousa.demo_parking_api.service.UserService;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientCreateDto;
 import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientUpdateDto;
-import com.sousa.demo_parking_api.web.Dto.PageableResponseDto;
+import com.sousa.demo_parking_api.web.Dto.responseDto.PageableDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ClientResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
 import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
@@ -50,7 +50,7 @@ public class ClientController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<PageableResponseDto> findAll(@PageableDefault(size = 5, sort = "id") Pageable pageable) {
+    public ResponseEntity<PageableDto> findAll(@PageableDefault(size = 5, sort = "id") Pageable pageable) {
         Page<ClientProjectionDto> client = clientservice.findAllPageable(pageable);
         return ResponseEntity.ok(PegeableMapper.toDto(client));
     }

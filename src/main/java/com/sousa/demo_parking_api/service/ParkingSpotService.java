@@ -3,8 +3,11 @@ package com.sousa.demo_parking_api.service;
 import com.sousa.demo_parking_api.customException.EntityNotFoundException;
 import com.sousa.demo_parking_api.entity.ParkingSpot;
 import com.sousa.demo_parking_api.repository.ParkingSpotRepository;
+import com.sousa.demo_parking_api.repository.projection.ParkingSpotProjectionDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +38,8 @@ public class ParkingSpotService {
          return repository.countByClientCpfAndExitDateIsNotNull(cpf);
     }
 
-    public List<ParkingSpot> findByClientCpf(String ClientCpf) {
-         return repository.findByClientCpf(ClientCpf).orElseThrow(()->new EntityNotFoundException(String.format("Cliente com o cpf : %s não encontrado", ClientCpf)));
+    @Transactional
+    public Page<ParkingSpotProjectionDto> findByAllClientCpf(String clientCpf, Pageable pageable) {
+         return repository.findByClientCpf(clientCpf, pageable);
     }
 }
