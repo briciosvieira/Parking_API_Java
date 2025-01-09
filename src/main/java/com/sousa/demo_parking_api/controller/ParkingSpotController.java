@@ -76,7 +76,7 @@ public class ParkingSpotController {
 
     @GetMapping
     @PreAuthorize("hasRole('CLIENTE')")
-    public ResponseEntity<PageableDto> findByAllClientUserId(@AuthenticationPrincipal JwtUserDetails user,
+    public ResponseEntity<PageableDto> findByAllForUserId(@AuthenticationPrincipal JwtUserDetails user,
                                                              @PageableDefault(size = 5, sort = "vacancyParkingCode",
                                                               direction = Sort.Direction.ASC) Pageable pageable){
 
