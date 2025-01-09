@@ -1,13 +1,12 @@
 package com.sousa.demo_parking_api.controller;
-
 import com.sousa.demo_parking_api.entity.Vacancy;
 import com.sousa.demo_parking_api.repository.projection.VacancyProtectionDto;
 import com.sousa.demo_parking_api.service.VacancyService;
 import com.sousa.demo_parking_api.web.Dto.VacancyDto.VacancyCreateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.PageableDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.VacancyResponseDto;
+import com.sousa.demo_parking_api.web.mapper.PageableModelMapper;
 import com.sousa.demo_parking_api.web.mapper.VacancyModelMapper;
-import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +51,7 @@ public class VacancyController {
     public ResponseEntity<PageableDto> findAll(Pageable pageable){
         Page<VacancyProtectionDto> parkSpace = service.findAllPageableCode(pageable);
 
-        return ResponseEntity.ok(PegeableMapper.toDto(parkSpace));
+        return ResponseEntity.ok(PageableModelMapper.toDto(parkSpace));
     }
 
 }

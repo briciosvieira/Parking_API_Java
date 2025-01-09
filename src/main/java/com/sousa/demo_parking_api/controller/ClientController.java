@@ -11,7 +11,7 @@ import com.sousa.demo_parking_api.web.Dto.clienteDto.ClientUpdateDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.PageableDto;
 import com.sousa.demo_parking_api.web.Dto.responseDto.ClientResponseDto;
 import com.sousa.demo_parking_api.web.mapper.ClientModelMapper;
-import com.sousa.demo_parking_api.web.mapper.PegeableMapper;
+import com.sousa.demo_parking_api.web.mapper.PageableModelMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +52,7 @@ public class ClientController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PageableDto> findAll(@PageableDefault(size = 5, sort = "id") Pageable pageable) {
         Page<ClientProjectionDto> client = clientservice.findAllPageable(pageable);
-        return ResponseEntity.ok(PegeableMapper.toDto(client));
+        return ResponseEntity.ok(PageableModelMapper.toDto(client));
     }
 
     @PatchMapping("/{id}")

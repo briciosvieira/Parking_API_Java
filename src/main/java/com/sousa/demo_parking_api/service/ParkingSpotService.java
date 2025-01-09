@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 public class ParkingSpotService {
@@ -41,5 +39,9 @@ public class ParkingSpotService {
     @Transactional
     public Page<ParkingSpotProjectionDto> findByAllClientCpf(String clientCpf, Pageable pageable) {
          return repository.findByClientCpf(clientCpf, pageable);
+    }
+
+    public Page<ParkingSpotProjectionDto> findByAllClientUserId(Long id, Pageable pageable) {
+         return repository.findByClientUserId(id, pageable);
     }
 }

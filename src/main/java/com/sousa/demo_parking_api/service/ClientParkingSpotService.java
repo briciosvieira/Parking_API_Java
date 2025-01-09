@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -72,5 +71,10 @@ public class ClientParkingSpotService {
     @Transactional
     public Page<ParkingSpotProjectionDto> findByAllClientCpf(String ClientCpf, Pageable pageable) {
         return parkingSpotService.findByAllClientCpf(ClientCpf, pageable);
+    }
+
+
+    public Page<ParkingSpotProjectionDto> findByAllClientUserId(Long id, Pageable pageable) {
+        return parkingSpotService.findByAllClientUserId(id, pageable);
     }
 }

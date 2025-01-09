@@ -14,7 +14,7 @@ public interface ParkingSpotProjectionDto {
      String getModel();
      String getClientCpf();
      String getReceipt();
-     String getParkingCode();
+     String getVacancyParkingCode();
      BigDecimal getValue();
      BigDecimal getDiscount();
     @JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
