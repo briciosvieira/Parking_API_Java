@@ -41,6 +41,7 @@ public class ParkingSpotService {
          return repository.findByClientCpf(clientCpf, pageable);
     }
 
+    @Transactional
     public Page<ParkingSpotProjectionDto> findByAllClientUserId(Long id, Pageable pageable) {
          return repository.findByClientUserId(id, pageable);
     }

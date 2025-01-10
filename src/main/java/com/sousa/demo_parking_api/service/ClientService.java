@@ -34,6 +34,7 @@ public class ClientService {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
     }
 
+    @Transactional
     public Page<Client> findAll(Pageable pageable) {
         return repository.findAll(pageable);
 

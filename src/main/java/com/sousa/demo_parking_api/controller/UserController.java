@@ -41,6 +41,7 @@ public class UserController {
             @ApiResponse(responseCode = "422", description = "Recursos não processado por dados invalidos",
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageException.class)))
         })
+
     @PostMapping
     public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserCreateDto userdto){
         User users = service.save(UserModelMapper.toUser(userdto));
@@ -71,6 +72,7 @@ public class UserController {
                     @ApiResponse(responseCode = "204", description = "Lista vazia",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageException.class))),
             })
+
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponseDto>> getAll(){
@@ -87,6 +89,7 @@ public class UserController {
                     @ApiResponse(responseCode = "400", description = "Verifique as senhas e tente novamente",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageException.class)))
             })
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') || (hasRole('CLIENTE') AND #id == principal.id)")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id ,@Valid @RequestBody UpdatePasswordDto dto){
@@ -102,6 +105,7 @@ public class UserController {
                     @ApiResponse(responseCode = "404", description = "usuário não encontrado",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessageException.class)))
             })
+
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

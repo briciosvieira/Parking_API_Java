@@ -73,7 +73,7 @@ public class ClientParkingSpotService {
         return parkingSpotService.findByAllClientCpf(ClientCpf, pageable);
     }
 
-
+    @Transactional
     public Page<ParkingSpotProjectionDto> findByAllClientUserId(Long id, Pageable pageable) {
         return parkingSpotService.findByAllClientUserId(id, pageable);
     }
